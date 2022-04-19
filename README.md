@@ -1,8 +1,6 @@
 # Gardel
 
-# Integrantes
-
-Los integrantes del grupo de trabajo son:
+# Integrantes del grupo de trabajo
 
 Juliana Cuello 
 <julianabelencuello@gmail.com>
