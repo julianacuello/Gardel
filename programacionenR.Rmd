@@ -1,0 +1,262 @@
+---
+title: TyHM - Programación en R-CRan - GARDEL 
+author:
+  - name: Juliana Cuello
+    email: julianabelencuello@gmail.com
+    affiliation: Facultad de Ingeniería Industrial
+  - name: Iván Ferre
+    email: ivan.ferre.98@gmail.com
+    affiliation: Facultad de Ingeniería Industrial
+  - name: Augusto Nieto
+    email: augustoonieto@gmail.com
+    affiliation: Facultad de Ingeniería Industrial
+  - name: Constanza Di Rocco
+    email: cdiroccoarmitano@gmail.com
+    affiliation: Facultad de Ingeniería Industrial
+address:
+  - code: Universidad Nacional de Cuyo
+    address: Ciudad de Mendoza
+
+
+journal: "Cátedra Técnicas y Herramientas Modernas I"
+date: "`r Sys.Date()`"
+classoption: preprint, 3p, authoryear
+bibliography: mybibfile.bib
+linenumbers: false
+numbersections: true
+# Use a CSL with `citation_package = "default"`
+# csl:
+output: 
+  rticles::elsevier_article:
+    keep_tex: true
+    citation_package: natbib
+    
+abstract: |
+  Utilizamos el lenguaje de programación R para resolver problemas de la vida cotiana a apartir de métodos matemáticos. Se estudiarán diferentes conceptos y funciones del lenguaje que luego se revisarán y compararán distintos algoritmos.
+
+---
+
+ **RESOLUCIÓN DE EJERCICIOS**
+
+# Ejercicio: Generar un vector secuencia
+
+ **Creación de vectores**
+
+Escribimos c para concatenar. 
+```{r}
+v1 <- c (1,2,3,4,5)
+```
+ Acabamos de crear un vector de 5 componentes.
+
+ **Creación de un vector de 9 componentes**
+```{r}
+v2 <- c (1,2,3,4,5,6,7,8,9)
+```
+
+
+ **Creación de una matriz de 3x3**
+ 
+ Escribimos 'ncol' para cantidad de columnas. Siempre es byrow TRUE o FALSE para que lo acomode en orden de filas o de columnas
+ 
+```{r}
+n1 <- matrix(v2,ncol = 3,byrow = TRUE)
+n2 <- matrix(v2,ncol = 3,byrow = FALSE)
+```
+
+
+ En la consola escribo "?" antes de la palabra que tenga duda
+
+ Averiguar que clase de objeto hemos creado: para saber de que clase es un objeto se utiliza el comando "class (nombre del objeto)"
+vemos que nos dice que el vector es de tipo numérico y la matriz de tipo array 
+
+```{r}
+class(v1)
+class(n1)
+```
+
+
+
+ **Creación de un vector de palabras**
+```{r}
+v3 <- c("a","b","c")
+class(v3)
+v3
+```
+
+
+Para conocer el valor que se encuentra en la fila 1 columna 3 se escribe en la consola: n1[1,3]   
+Para decir que son todas las filas o columnas pongo un espacio entre los corchetes
+
+Importar datos de excel o de la red
+
+ , es comma   ; es semicolon
+ 
+Lo que nos dice al pegar un dato de excel es que enumera todos los cambios que tuvimos que hacer en el archivo original para dejarlo ordenado y acomodado
+
+Dataset es un conjunto de datos de una tabla www.kaggle.com
+
+
+```{r}
+A<-0
+start_time<-Sys.time()
+for (i in 1:50000) { A[i] <- (i*2)}
+end_time<-Sys.time()
+end_time-start_time
+```
+
+
+# Ejercicio: Implementación de una serie Fibonacci
+
+
+La serie Fibonacci comienza con los números 0 y 1, a partir de estos cada uno de los siguientes términos es
+la suma de los dos anteriores, a continuación puede verse el código para implementar la serie:
+```{r}
+A <- 0
+B <-1
+F[1] <-A
+F[2] <-B
+for (i in 3:100)
+{
+  F[i] <-(F[i-1]+F[i-2])
+  }
+head(F)
+ 
+```
+Posteriomente se quiere saber la cantidad de iteraciones necesarias para generar un número de la serie mayor
+que 1000000. Para esto vamos a eliminar la F con el fin de poder comenzar desde cero con la implementación
+de la serie. A continuación se puede observar el código correspondiente a la obtención de las iteraciones:
+
+```{r}
+remove(F)
+A<-0
+B <- 1
+C <- 0
+it <- 30
+F[1]<-A
+F[2]<-B
+for(i in 3:(2+it)) {
+F[i]<-(F[i-1]+F[i-2])
+}
+C <- length(F)
+message("Para ",it," iteraciones, el penúltimo valor es: \n",F[C-1],
+        "\n","y el último es: \n"
+,F[C])
+```
+En conclusión se observa que se necesitan 30 iteraciones para superar el número 1000000
+
+
+# Ejercicio: Ordenación de un vector por método burbuja
+
+
+En este apartado vamos a ordenar un vector con el método burbuja, que funciona revisando cada elemento de la lista y comparándolo con el siguiente, luego de compararlos los intercambia de posición (si están en orden equivocado), posteriormente se ordenará con el comando “SORT” de R. 
+ 
+```{r}
+library(tictoc)
+t1<-Sys.time()
+#Tomo una muestra de 10 números entre 1 y 100
+x<-sample(1:100,10)
+#Creo una funcion para ordenar
+burbuja<-function(x){
+n<-length(x)
+for(j in 1:(n-1)){
+for(i in 1:(n-j)){
+if(x[i]>x[i+1]){
+temp<-x[i]
+x[i]<-x[i+1]
+x[i+1]<-temp
+}
+}
+}
+return(x)
+}
+t2 <- Sys.time()
+res<-burbuja(x)
+#muestra ordenada
+res
+#La diferencia de tiempo es t2-t1
+t2-t1
+toc()
+```
+
+# Ejercicio: Progresión geométrica del COVid-19
+
+Primero descargamos la libreria de “readr”, luego ingresamos los datos .csv a partir del archivo descargado de la página de la cátedra de la siguiente manera: File->Import dataset->from text(readr), luego se siguen las consignas de la guía y se copian los pasos realizados en lenguaje r para pegarlos en el siguiente código:
+
+```{r}
+library(readr)
+casos <- read_delim("C:/Users/mgdir/OneDrive/Escritorio/Constanza/TyHM/Modulo2/casos.csv", 
+    delim = ";", escape_double = FALSE, col_types = cols(Fecha = 
+                                                           col_date(format = "%m/%d/%Y"), 
+        Casos = col_integer()), trim_ws = TRUE,
+    skip = 1)
+```
+
+ **Estadística de casos**
+
+
+```{r}
+summary(casos$Casos)
+```
+```{r}
+m <- length(casos$Casos)
+F <- (casos$Casos[2:m])/(casos$Casos[1:m-1])
+F[m-1]
+```
+
+Podemos calcular el factor de contagios dividiendo los infectados de hoy sobre los de ayer, en el siguiente código se muestra cómo hacerlo:
+
+```{r}
+m <- length(casos$Casos)
+F <- (casos$Casos[2:m])/(casos$Casos[1:m-1])
+F[m-1]
+```
+
+
+
+Este es el factor de contagios
+
+ **Estadísticos de F (factor de contagios)**
+```{r}
+mean(F,na.rm = TRUE)
+```
+
+```{r}
+sd(F,na.rm = TRUE)
+```
+
+```{r}
+var(F,na.rm = TRUE)
+```
+
+
+ 
+ **Ploteo de datos**
+
+Con los datos importados anteriormente procedimos a realizar un ploteo para poder visualizarlos. A continuación se muestran los códigos implementados para los distintos gráficos.
+
+```{r}
+casos$Casos
+```
+
+```{r}
+plot(casos$Casos ,main="Contagios 2020",ylab="Semana",
+     xlab="Casos positivos de Covid")
+```
+
+```{r}
+hist(casos$Casos,breaks=50,main = "Contagios en la Argentina", 
+     xlab = "Pacientes por semana",ylab = "Frecuencia relativa")
+```
+
+```{r}
+plot(density(na.omit(casos$Casos)),main="Densidad de contagios en la Argentina", 
+     ylab = "Densidad", xlab = "Pacientes por semana")
+```
+
+# Conclusión
+
+R es lo que se conoce como un entorno de desarrollo integrado para escribir programas en varios lenguajes por ejemplo: Python, Stan, SQL, para hacer consulta a la bases de datos establecer vinculaciones con otros sistemas en la nube, etc. Originalmente fue concebido para R pero por eso no quiere decir que este limitado.
+
+
+
+---
